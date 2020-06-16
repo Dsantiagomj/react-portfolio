@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-const SectionTitle = styled.h2`
-  color: #00343d;
+import Layout from '../../components/layout';
+import Avatar from '../../components/avatar';
+import { DefaultButton } from '../../components/button';
+import { Title } from '../../components/typography';
+
+const SectionTitle = styled.div`
   margin: 0 auto;
   max-width: 39rem;
-  padding: 2rem; 0.5rem 0;
-  text-align: center;
+  padding: 2rem 0.5rem 0;
 `;
 
-const Wrapper = styled.div`
+const Form = styled.form`
   margin: 5rem auto 10rem;
   max-width: 35rem;
   min-height: 25rem;
@@ -18,7 +21,7 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const FormWrapper = styled.div`
+const Row = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -63,36 +66,6 @@ const TextArea = styled.textarea`
   width: 100%;
 `;
 
-const Button = styled.input`
-  background: transparent;
-  background-clip: padding-box;
-  border: solid 2px #0bd8a2;
-  border-radius: 0.25rem;
-  color: #0bd8a2;
-  margin: 0 auto;
-  padding: ${(props) => (props.returnHome ? '0.5rem' : '0.5rem 3rem')};
-  text-align: center;
-  transition: padding 0.3s ease-in-out;
-  &:hover {
-    background: #0bd8a2;
-    color: white;
-    cursor: pointer;
-    padding: ${(props) => (props.returnHome ? '0.5rem 1rem' : '0.5rem 3.5rem')};
-  }
-`;
-
-const Avatar = styled.div`
-  background-image: url(${(props) => props.defaultImage});
-  height: 280px;
-  margin: 0 auto;
-  margin-top: 2rem;
-  transition: background-image 0.2s ease-in-out;
-  width: 260px;
-  &:hover {
-    background-image url(${(props) => props.onHoverImage});
-  }
-`;
-
 const Contact = ({ location: { pathname } }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -105,9 +78,7 @@ const Contact = ({ location: { pathname } }) => {
     formData.append('email', email);
     formData.append('message', message);
 
-    const request = new Request(
-      'https://getform.io/f/0d454f78-7045-41e8-ba8a-bb98a2f03203',
-    );
+    const request = new Request(`${process.env.REACT_APP_REQUEST_URL}`);
     const data = {
       method: 'POST',
       headers: {
@@ -124,53 +95,53 @@ const Contact = ({ location: { pathname } }) => {
   };
 
   return (
-    <>
-      <Avatar defaultImage="/avatar.svg" onHoverImage="/hover_avatar.svg" />
+    <Layout location={pathname}>
+      <Avatar defaultImage="/avatar.svg" hoverImage="/hover_avatar.svg" />
       <SectionTitle>
-        Thanks for taking the time to reach out. How can I help you today?
+        <Title fontSize="1.75rem">
+          Thanks for taking the time to reach out. How can I help you today?
+        </Title>
       </SectionTitle>
-      <Wrapper>
-        <form onSubmit={handleSubmit} autoComplete="on">
-          <FormWrapper>
-            <FieldWrapper>
-              <Label>Your name</Label>
-              <Input
-                type="text"
-                name="name"
-                required
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-            </FieldWrapper>
-            <FieldWrapper last>
-              <Label>Your Email</Label>
-              <Input
-                type="email"
-                name="_replyto"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
-            </FieldWrapper>
-          </FormWrapper>
+      <Form onSubmit={handleSubmit} autoComplete="on">
+        <Row>
           <FieldWrapper>
-            <Label>Your message</Label>
-            <TextArea
-              name="message"
+            <Label>Your name</Label>
+            <Input
+              type="text"
+              name="name"
               required
-              wrap="hard"
-              cols="40"
-              rows="10"
-              spellcheck
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </FieldWrapper>
+          <FieldWrapper last>
+            <Label>Your Email</Label>
+            <Input
+              type="email"
+              name="_replyto"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </FieldWrapper>
+        </Row>
+        <FieldWrapper>
+          <Label>Your message</Label>
+          <TextArea
+            name="message"
+            required
+            wrap="hard"
+            cols="40"
+            rows="10"
+            spellcheck
+            onChange={(e) => setMessage(e.target.value)}
+            value={message}
+          />
+        </FieldWrapper>
 
-          <Button type="submit" value="Submit" />
-        </form>
-      </Wrapper>
-    </>
+        <DefaultButton type="submit" value="Submit" minWidth="12.25rem" />
+      </Form>
+    </Layout>
   );
 };
 
