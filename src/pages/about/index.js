@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import projects from '../../services/projects';
 import companies from '../../services/companies';
 
+import SEO from '../../components/seo';
 import Card from './card';
 import Layout from '../../components/layout';
 import Image from '../../components/image';
@@ -57,6 +58,10 @@ const Company = styled.div`
 const About = ({ location: { pathname } }) => {
   return (
     <Layout location={pathname}>
+      <SEO
+        title="About | Software Developer"
+        description="Personal Web Developer Portfolio. I'm a Fullstack developer with emphasis on Front-End and JavaScript specialist"
+      />
       <Container>
         <Wrapper>
           <Title text="My Work" fontSize="1.75rem" fontWeight={700} />

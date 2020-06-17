@@ -7,6 +7,7 @@ import careerInfo from '../../services/careerInfo';
 
 import Paper from './paper';
 
+import SEO from '../../components/seo';
 import Layout from '../../components/layout';
 import Avatar from '../../components/avatar';
 import Image from '../../components/image';
@@ -97,6 +98,10 @@ const titleText = '< Hello World />';
 
 const LandingPage = ({ location: { pathname } }) => (
   <Layout location={pathname}>
+    <SEO
+      title="Santiago M | Software Developer"
+      description="Personal Web Developer Portfolio. I'm a Fullstack developer with emphasis on Front-End and JavaScript specialist"
+    />
     <Container>
       <Wrapper>
         <TitleWrapper>

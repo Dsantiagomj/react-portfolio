@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
+import SEO from '../../components/seo';
 import Layout from '../../components/layout';
 import Avatar from '../../components/avatar';
 import { DefaultButton } from '../../components/button';
@@ -97,6 +98,10 @@ const Contact = ({ location: { pathname } }) => {
   return (
     <Layout location={pathname}>
       <Avatar defaultImage="/avatar.svg" hoverImage="/hover_avatar.svg" />
+      <SEO
+        title="Contact | Software Developer"
+        description="Personal Web Developer Portfolio. I'm a Fullstack developer with emphasis on Front-End and JavaScript specialist"
+      />
       <SectionTitle>
         <Title fontSize="1.75rem">
           Thanks for taking the time to reach out. How can I help you today?
